@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-pseudo-login',
@@ -10,7 +11,9 @@ import { Router } from '@angular/router';
 export class PseudoLoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private session: AuthenticationService) { }
+
+  get f() { return this.loginForm.controls; }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -23,8 +26,13 @@ export class PseudoLoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    const loggedIn = this.session.loginUser(this.f.username.value, this.f.password.value);
+    if (loggedIn) {
 
-    this.router.navigate(['/']);
-    console.log("was submitted!");
+      this.router.navigate(['/']); 
+    } else {
+      console.log("login hit the fan!");
+    } 
+    
   }
 }
