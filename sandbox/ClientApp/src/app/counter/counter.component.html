@@ -2,6 +2,17 @@
 
 <p>This is a simple example of an Angular component.</p>
 
-<p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
 
-<button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <p aria-live="polite">Current count: <strong>{{ currentCount / 100 | percent }}</strong></p>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <button class="btn btn-primary" (click)="decrementCounter()">Decrement</button>
+    </div>
+</div>
+
